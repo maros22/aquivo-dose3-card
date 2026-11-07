@@ -1,0 +1,6 @@
+*.pem
+*.key
+*source*.tar.gz
+zalohy/
+backups/
+.DS_Store
