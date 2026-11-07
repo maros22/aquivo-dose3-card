@@ -1,4 +1,4 @@
-# Aquivo Dose 3 Card · 1.3.0
+# Aquivo Dose 3 Card · 1.3.1
 
 Home Assistant dashboard card for **Aquivo Dose 3**, using existing Zigbee2MQTT entities. Three pump channels, reservoir levels, daily totals, manual dosing, refill and daily/weekday schedules. No external libraries, CDN, account or device password required.
 
@@ -37,7 +37,7 @@ Language changes preserve your names, inputs, open forms and command targets and
 
 ## Manual installation / offline
 
-Download `aquivo-dose3-card.js` from the GitHub release and copy it to your Home Assistant `www` directory. Add `/local/aquivo-dose3-card.js?v=1.3.0` as a JavaScript module and refresh the browser. The device also serves an offline ZIP with the card and optional helper integration at `/hass`; in that package the compatible filename is `net4u-fert3-card.js`, so its resource is `/local/net4u-fert3-card.js?v=1.3.0`.
+Download `aquivo-dose3-card.js` from the GitHub release and copy it to your Home Assistant `www` directory. Add `/local/aquivo-dose3-card.js?v=1.3.1` as a JavaScript module and refresh the browser. The device also serves an offline ZIP with the card and optional helper integration at `/hass`; in that package the compatible filename is `net4u-fert3-card.js`, so its resource is `/local/net4u-fert3-card.js?v=1.3.1`.
 
 The optional helper integration is named **Aquivo Dose 3 · Karta**. Its technical folder remains `custom_components/net4u_fert3`; it registers the resource automatically and requires a Home Assistant restart. Use one loading method only.
 
