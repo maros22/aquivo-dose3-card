@@ -1,6 +1,14 @@
-# Aquivo Dose 3 Card · 1.3.2
+# Aquivo Dose 3 Card · 1.4.0
 
-The device link uses the same native external-link behavior as the Aquivo ATO card: `target="_blank"`, `rel="noopener noreferrer"`, with no custom click handler. This allows the macOS Companion app to open the URL externally. Version 1.3.2 is a card update; device firmware remains 1.3.1.
+Dose 3 firmware and card 1.4.0 add a **Calibration** tab for all three pumps, in all seven interface languages. The existing native external device link is retained.
+
+## Guided calibration
+
+Use SERVICE and collect liquid outside the aquarium. Select the pump, prime the tubing, release a little liquid, and prepare an empty 5 ml measuring cylinder. Start with a 2-second measurement; stop before the cylinder fills. Increase measurement time only when the actual flow is known (ideally collect 2–4 ml). Enter the measured volume, empty the cylinder, then run **4 ml verification**. Wait for automatic stop, enter the actual verification volume, and confirm save only if it is **3.9–4.1 ml (±2.5%)**. A failed check requires another calibration measurement. Stopping verification early invalidates that check.
+
+The firmware enforces the sequence, including completion of the verification run; hiding a button is not the only protection. The previous saved flow remains unchanged until final confirmation. Pending calibration blocks AUTO and manual doses on that channel. Cancel/reboot drops provisional results. Changing tab, pump or language never starts a pump. Calibration liquid is collected outside the aquarium and is excluded from aquarium daily/total dose counters; reservoir use is estimated, so check the actual stock afterward.
+
+Firmware 1.4.0 and the new Zigbee entities are required for the tab controls. Refresh the existing Dose 3 interview/configuration in Zigbee2MQTT after the firmware update; do not remove/re-pair the device. Existing endpoint IDs, device IDs, plans and previous saved calibrations are preserved. On older firmware the tab explains the missing support and keeps calibration controls disabled.
 
 Home Assistant dashboard card for **Aquivo Dose 3**, using existing Zigbee2MQTT entities. Three pump channels, reservoir levels, daily totals, manual dosing, refill and daily/weekday schedules. No external libraries, CDN, account or device password required.
 
@@ -14,14 +22,14 @@ Home Assistant dashboard card for **Aquivo Dose 3**, using existing Zigbee2MQTT 
 If HACS does not register the resource automatically, add `/hacsfiles/aquivo-dose3-card/aquivo-dose3-card.js` as a **JavaScript module** under Settings → Dashboards → Resources. Load exactly one copy: remove the previous manually registered resource when moving to HACS. This repository can be added as a custom repository; inclusion in HACS’s default catalogue is a separate process.
 
 ```yaml
-type: custom:net4u-fert3-card
+type: custom:aquivo-dose3-card
 language: auto
 # Optional custom names, preserved verbatim in every language:
 # name: My aquarium
 # pump_names: [Macro, Micro, Potassium]
 ```
 
-The existing `custom:net4u-fert3-card` type is retained for compatibility. Keep your current device_id and custom names; no new device or dashboard is needed.
+The existing `custom:aquivo-dose3-card` type is retained for compatibility. Keep your current device_id and custom names; no new device or dashboard is needed.
 
 ## Seven offline languages
 
@@ -39,9 +47,9 @@ Language changes preserve your names, inputs, open forms and command targets and
 
 ## Manual installation / offline
 
-Download `aquivo-dose3-card.js` from the GitHub release and copy it to your Home Assistant `www` directory. Add `/local/aquivo-dose3-card.js?v=1.3.2` as a JavaScript module and refresh the browser. The device also serves an offline ZIP with the card and optional helper integration at `/hass`; in that package the compatible filename is `net4u-fert3-card.js`, so its resource is `/local/net4u-fert3-card.js?v=1.3.2`.
+Download `aquivo-dose3-card.js` from the GitHub release and copy it to your Home Assistant `www` directory. Add `/local/aquivo-dose3-card.js?v=1.4.0` as a JavaScript module and refresh the browser. The device also serves an offline ZIP with the card and optional helper integration at `/hass`; in that package the compatible filename is `aquivo-dose3-card.js`, so its resource is `/local/aquivo-dose3-card.js?v=1.4.0`.
 
-The optional helper integration is named **Aquivo Dose 3 · Karta**. Its technical folder remains `custom_components/net4u_fert3`; it registers the resource automatically and requires a Home Assistant restart. Use one loading method only.
+The optional helper integration is named **Aquivo Dose 3 · Karta**. Its technical folder remains `custom_components/aquivo_dose3`; it registers the resource automatically and requires a Home Assistant restart. Use one loading method only.
 
 ## Operation and compatibility
 
@@ -56,3 +64,9 @@ Offline values are not presented as current; AUTO is blocked, while SERVICE rema
 ## Validation
 
 The release uses the actual card code in tests for three separate channels, device isolation, entity renaming/ambiguity, offline guards, volume bounds, confirmed writes before dosing, cancellation by SERVICE/device changes, weekday schedules and partial failures. DOM tests cover all seven languages, editor selection, locale fallback, forbidden storage, preserved user data and unsaved forms, with zero real device commands.
+
+## Existing installations
+
+When upgrading from an older card type, change the existing card to `type: custom:aquivo-dose3-card` and keep its `device_id`, pump names and other settings. Keep one Aquivo JavaScript resource. Disable the previous card helper before moving to HACS so it cannot restore a duplicate resource after a restart. The Zigbee device stays paired; do not remove it or delete its entities.
+
+Pri prechode zo staršej karty zmeň typ existujúcej karty na `custom:aquivo-dose3-card`. Zachovaj `device_id`, názvy púmp a ostatné nastavenia. Ponechaj jeden zdroj Aquivo; pred prechodom na HACS vypni pôvodného pomocníka karty. Zigbee zariadenie neodstraňuj a nemaž jeho entity.
