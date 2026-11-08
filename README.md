@@ -1,6 +1,8 @@
-# Aquivo Dose 3 Card · 1.4.0
+Card 1.4.1 preserves calibration scroll anchors and focused inputs during repeated HASS reports. Card-only update; existing firmware 1.4.1 is unchanged.
 
-Dose 3 firmware and card 1.4.0 add a **Calibration** tab for all three pumps, in all seven interface languages. The existing native external device link is retained.
+# Aquivo Dose 3 Card · 1.4.1
+
+Dose 3 firmware 1.4.0 introduced a **Calibration** tab for all three pumps, in all seven interface languages. The existing native external device link is retained.
 
 ## Guided calibration
 
@@ -8,7 +10,7 @@ Use SERVICE and collect liquid outside the aquarium. Select the pump, prime the 
 
 The firmware enforces the sequence, including completion of the verification run; hiding a button is not the only protection. The previous saved flow remains unchanged until final confirmation. Pending calibration blocks AUTO and manual doses on that channel. Cancel/reboot drops provisional results. Changing tab, pump or language never starts a pump. Calibration liquid is collected outside the aquarium and is excluded from aquarium daily/total dose counters; reservoir use is estimated, so check the actual stock afterward.
 
-Firmware 1.4.0 and the new Zigbee entities are required for the tab controls. Refresh the existing Dose 3 interview/configuration in Zigbee2MQTT after the firmware update; do not remove/re-pair the device. Existing endpoint IDs, device IDs, plans and previous saved calibrations are preserved. On older firmware the tab explains the missing support and keeps calibration controls disabled.
+Firmware 1.4.0 or newer and the new Zigbee entities are required for the tab controls. Refresh the existing Dose 3 interview/configuration in Zigbee2MQTT after the firmware update; do not remove/re-pair the device. Existing endpoint IDs, device IDs, plans and previous saved calibrations are preserved. On older firmware the tab explains the missing support and keeps calibration controls disabled.
 
 Home Assistant dashboard card for **Aquivo Dose 3**, using existing Zigbee2MQTT entities. Three pump channels, reservoir levels, daily totals, manual dosing, refill and daily/weekday schedules. No external libraries, CDN, account or device password required.
 
@@ -47,7 +49,7 @@ Language changes preserve your names, inputs, open forms and command targets and
 
 ## Manual installation / offline
 
-Download `aquivo-dose3-card.js` from the GitHub release and copy it to your Home Assistant `www` directory. Add `/local/aquivo-dose3-card.js?v=1.4.0` as a JavaScript module and refresh the browser. The device also serves an offline ZIP with the card and optional helper integration at `/hass`; in that package the compatible filename is `aquivo-dose3-card.js`, so its resource is `/local/aquivo-dose3-card.js?v=1.4.0`.
+Download `aquivo-dose3-card.js` from the GitHub release and copy it to your Home Assistant `www` directory. Add `/local/aquivo-dose3-card.js?v=1.4.1` as a JavaScript module and refresh the browser. Installed firmware 1.4.1 still bundles card 1.4.0; download this card update from HACS/GitHub. The device also serves an offline ZIP with the card and optional helper integration at `/hass`; in that package the compatible filename is `aquivo-dose3-card.js`, so its resource is `/local/aquivo-dose3-card.js?v=1.4.1`.
 
 The optional helper integration is named **Aquivo Dose 3 · Karta**. Its technical folder remains `custom_components/aquivo_dose3`; it registers the resource automatically and requires a Home Assistant restart. Use one loading method only.
 
