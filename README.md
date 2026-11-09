@@ -1,8 +1,19 @@
-Card 1.4.1 preserves calibration scroll anchors and focused inputs during repeated HASS reports. Card-only update; existing firmware 1.4.1 is unchanged.
+# Aquivo Dose 3 Card · 1.5.3
 
-# Aquivo Dose 3 Card · 1.4.1
+Card 1.5.3 and firmware 1.5.3 improve calibration controls, refill references and schedule edits. Existing entity IDs and the native device-web link are retained.
 
-Dose 3 firmware 1.4.0 introduced a **Calibration** tab for all three pumps, in all seven interface languages. The existing native external device link is retained.
+## New in 1.5.3
+
+Time fields use plain text instead of the native macOS time picker. Enter `20:00`, `2000` or `20`; all save as 20:00. Time fields stay within their columns in the macOS app.
+
+
+- Enabling AUTO catches up today’s missed schedule doses, including after calibration or schedule edits. Earlier days are not replayed. Existing volume and daily limits still apply.
+- Today’s dose is shown as the scheduled amount plus a red **+ X ml** for manual doses. The total entity still includes both; calibration and tubing priming are excluded. Missing or unavailable manual-dose sensors fall back to the existing total without guessing.
+- Each positive refill amount becomes the new full reference: 500 ml = 500/500 ml (100%); a later 750 ml = 750/750 ml (100%). Zero empties the reservoir and retains its last full reference. Real daily/total dosing and calibration are preserved.
+- The calibration tab shows the firmware cooldown and waits for a fresh device acknowledgement. Failures appear next to the controls. Returning to the macOS app or reconnecting does not repeat a command.
+- Device names can be edited on the web. Bidirectional HASS name editing is prepared through the optional [Aquivo Zigbee2MQTT converter](./aquivo-dose3.mjs). It requires explicit permission to enable external JavaScript in Zigbee2MQTT; without it, the existing local card names remain a fallback and name-edit buttons are hidden.
+
+The two standard cooldown/acknowledgement entities do not need an external converter. After firmware installation refresh the existing Dose 3 interview and reconfigure only that device, keeping it paired.
 
 ## Guided calibration
 
@@ -26,12 +37,12 @@ If HACS does not register the resource automatically, add `/hacsfiles/aquivo-dos
 ```yaml
 type: custom:aquivo-dose3-card
 language: auto
-# Optional custom names, preserved verbatim in every language:
+# Optional card title:
 # name: My aquarium
-# pump_names: [Macro, Micro, Potassium]
+
 ```
 
-The existing `custom:aquivo-dose3-card` type is retained for compatibility. Keep your current device_id and custom names; no new device or dashboard is needed.
+The existing `custom:aquivo-dose3-card` type is retained for compatibility. Keep your current device_id; no new device or dashboard is needed.
 
 ## Seven offline languages
 
@@ -49,7 +60,7 @@ Language changes preserve your names, inputs, open forms and command targets and
 
 ## Manual installation / offline
 
-Download `aquivo-dose3-card.js` from the GitHub release and copy it to your Home Assistant `www` directory. Add `/local/aquivo-dose3-card.js?v=1.4.1` as a JavaScript module and refresh the browser. Installed firmware 1.4.1 still bundles card 1.4.0; download this card update from HACS/GitHub. The device also serves an offline ZIP with the card and optional helper integration at `/hass`; in that package the compatible filename is `aquivo-dose3-card.js`, so its resource is `/local/aquivo-dose3-card.js?v=1.4.1`.
+Download `aquivo-dose3-card.js` from the GitHub release and copy it to your Home Assistant `www` directory. Add `/local/aquivo-dose3-card.js?v=1.5.3` as a JavaScript module and refresh the browser. Firmware 1.5.3 bundles the same card and installer. The device also serves an offline ZIP with the card and optional helper integration at `/hass`; in that package the compatible filename is `aquivo-dose3-card.js`, so its resource is `/local/aquivo-dose3-card.js?v=1.5.3`.
 
 The optional helper integration is named **Aquivo Dose 3 · Karta**. Its technical folder remains `custom_components/aquivo_dose3`; it registers the resource automatically and requires a Home Assistant restart. Use one loading method only.
 
@@ -59,7 +70,7 @@ Pair Dose 3 with Zigbee2MQTT first. The card maps stable channel properties with
 
 SERVICE pauses automatic dosing and stops the running pump. A manual dose requires stopped pumps, verified time, valid calibration, sufficient remaining volume and daily allowance, but does not require the pump’s automatic schedule to be enabled. The card first writes and waits for confirmation of the chosen volume, then sends a single dose command. It never automatically retries a dose. If a result is uncertain, check the actual state and dosed amount before trying again.
 
-Refill sets the **total amount currently in the reservoir** and does not reset daily consumption. Scheduling is edited in SERVICE; each Zigbee write is confirmed. A partial failure may leave some settings changed: reload from the device and inspect them. Saving a schedule does not enable AUTO. When enabled later, AUTO may catch up today’s missed doses within configured limits, only on a selected day; it does not catch up past days.
+Refill sets the **total amount currently in the reservoir** and does not reset daily consumption. Scheduling is edited in SERVICE; each Zigbee write is confirmed. A partial failure may leave some settings changed: reload from the device and inspect them. Saving a schedule does not enable AUTO. Newly edited schedules skip elapsed times. Unchanged existing schedules retain normal current-day recovery after a power interruption. Past days are never replayed.
 
 Offline values are not presented as current; AUTO is blocked, while SERVICE remains available for a stop attempt. Calibration, hardware output timing, inter-pump pauses and limits are enforced by the firmware. The web link tracks the selected device’s current IP address.
 
