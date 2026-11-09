@@ -1,6 +1,10 @@
-# Aquivo Dose 3 Card · 1.5.5
+# Aquivo Dose 3 Card · 1.5.6
 
-Card-only update 1.5.5 simplifies calibration and adds editable HASS fertilizer labels. Firmware remains 1.5.3; no device update is required. Existing entity IDs and the native device-web link are retained.
+Card-only update 1.5.6 simplifies calibration and adds editable HASS fertilizer labels. Firmware remains 1.5.4; no device update is required. Existing entity IDs and the native device-web link are retained.
+
+## New in 1.5.6
+
+AUTO/SERVICE status uses the same inherited normal font weight and 0.4 px letter spacing as the Aquivo ATO card. This is a card-only appearance update; install it through HACS. Device settings and firmware are unchanged.
 
 ## New in 1.5.5
 
@@ -70,7 +74,7 @@ Language changes preserve your names, inputs, open forms and command targets and
 
 ## Manual installation / offline
 
-Download `aquivo-dose3-card.js` from the GitHub release and copy it to your Home Assistant `www` directory. Add `/local/aquivo-dose3-card.js?v=1.5.5` as a JavaScript module and refresh the browser. Firmware 1.5.3 contains the earlier card 1.5.3. Install this card-only update through HACS or manually; the device-hosted package changes with a future firmware update. The device also serves an offline ZIP with the card and optional helper integration at `/hass`; in that package the compatible filename is `aquivo-dose3-card.js`, so its resource is `/local/aquivo-dose3-card.js?v=1.5.3`.
+Download `aquivo-dose3-card.js` from the GitHub release and copy it to your Home Assistant `www` directory. Add `/local/aquivo-dose3-card.js?v=1.5.6` as a JavaScript module and refresh the browser. Firmware 1.5.4 contains the earlier card 1.5.5. Install this card-only update through HACS or manually; the device-hosted package changes with a future firmware update. The device also serves an offline ZIP with the card and optional helper integration at `/hass`; in that package the compatible filename is `aquivo-dose3-card.js`, so its resource is `/local/aquivo-dose3-card.js?v=1.5.3`.
 
 The optional helper integration is named **Aquivo Dose 3 · Karta**. Its technical folder remains `custom_components/aquivo_dose3`; it registers the resource automatically and requires a Home Assistant restart. Use one loading method only.
 
