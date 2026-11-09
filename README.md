@@ -1,11 +1,15 @@
-# Aquivo Dose 3 Card · 1.5.4
+# Aquivo Dose 3 Card · 1.5.5
 
-Card-only update 1.5.4 simplifies calibration and adds editable HASS fertilizer labels. Firmware remains 1.5.3; no device update is required. Existing entity IDs and the native device-web link are retained.
+Card-only update 1.5.5 simplifies calibration and adds editable HASS fertilizer labels. Firmware remains 1.5.3; no device update is required. Existing entity IDs and the native device-web link are retained.
+
+## New in 1.5.5
+
+Click the fertilizer name itself to edit it. There is no separate Edit name button. The name is a keyboard-accessible control (Enter/Space), with the existing save dialog and persistence.
 
 ## New in 1.5.4
 
 - Measurement is fixed at 4 seconds. Both intermediate calibration buttons say **Save**; the time/flow proposal row is removed. The 4 ml verification and final confirmation are still required.
-- Use **Edit name** beneath a pump name. Without the optional Zigbee converter, the label is stored on the HASS server for this device and your HASS user account, so it survives reloads and is shared by the browser and app signed into the same account. It does not change the device-web name. A failed save is shown and is not treated as success.
+- Click a pump’s fertilizer name. Without the optional Zigbee converter, the label is stored on the HASS server for this device and your HASS user account, so it survives reloads and is shared by the browser and app signed into the same account. It does not change the device-web name. A failed save is shown and is not treated as success.
 - When a writable device-name entity is present, the same control edits the actual device name and waits for its confirmation. Device names then take precedence over HASS aliases. The optional converter remains opt-in.
 
 ## New in 1.5.3
@@ -66,7 +70,7 @@ Language changes preserve your names, inputs, open forms and command targets and
 
 ## Manual installation / offline
 
-Download `aquivo-dose3-card.js` from the GitHub release and copy it to your Home Assistant `www` directory. Add `/local/aquivo-dose3-card.js?v=1.5.4` as a JavaScript module and refresh the browser. Firmware 1.5.3 contains the earlier card 1.5.3. Install this card-only update through HACS or manually; the device-hosted package changes with a future firmware update. The device also serves an offline ZIP with the card and optional helper integration at `/hass`; in that package the compatible filename is `aquivo-dose3-card.js`, so its resource is `/local/aquivo-dose3-card.js?v=1.5.3`.
+Download `aquivo-dose3-card.js` from the GitHub release and copy it to your Home Assistant `www` directory. Add `/local/aquivo-dose3-card.js?v=1.5.5` as a JavaScript module and refresh the browser. Firmware 1.5.3 contains the earlier card 1.5.3. Install this card-only update through HACS or manually; the device-hosted package changes with a future firmware update. The device also serves an offline ZIP with the card and optional helper integration at `/hass`; in that package the compatible filename is `aquivo-dose3-card.js`, so its resource is `/local/aquivo-dose3-card.js?v=1.5.3`.
 
 The optional helper integration is named **Aquivo Dose 3 · Karta**. Its technical folder remains `custom_components/aquivo_dose3`; it registers the resource automatically and requires a Home Assistant restart. Use one loading method only.
 
